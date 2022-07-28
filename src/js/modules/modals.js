@@ -35,9 +35,21 @@ const modals = () => {
 
   function copyPromo(promoSelector) {
     const promocodes = document.querySelectorAll(promoSelector)
+    let div = document.createElement('div')
     promocodes.forEach(p => {
       p.addEventListener('click', (e) => {
-        console.log(e.target.innerHTML.trim())
+        try {
+          div.style.color = "green"
+          div.innerHTML = 'Успешно скопировано'
+          navigator.clipboard.writeText(e.target.innerHTML.trim())
+          p.parentNode.appendChild(div)
+        } catch (error) {
+          div.innerHTML = 'Произошла ошибка'
+          div.style.color = "red"
+        }
+        setTimeout(() => {
+          div.remove()
+        }, 3000);
       })
     })
   }
